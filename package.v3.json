@@ -3,13 +3,14 @@
     "name": "手动下载 TMDB 身份统一",
     "description": "手动下载前统一豆瓣、Bangumi影视身份，无法核验时沿用原身份。",
     "labels": "下载管理,媒体识别",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "icon": "Moviepilot_A.png",
     "author": "hussion",
     "level": 1,
     "system_version": ">=3.2.9,<3.3",
     "release": true,
     "history": {
+      "v1.1.0": "新增下载历史身份只读扫描预览；主程序支持一致性修正前不开放历史更新。",
       "v1.0.0": "首次发布：下载前身份统一、季集一致性检查与有界结果记录。"
     }
   }

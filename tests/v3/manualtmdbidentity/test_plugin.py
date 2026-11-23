@@ -12,6 +12,9 @@ from app.sdk.media import MediaInfo
 
 class IdentityTests(TestCase):
     def setUp(self):
+        remover = patch.object(module.scheduler_sdk, "remove_plugin_once_job", return_value=True)
+        remover.start()
+        self.addCleanup(remover.stop)
         self.plugin = object.__new__(module.ManualTmdbIdentity)
         self.plugin.init_plugin({"enabled": True, "notify": True})
         self.records = []
