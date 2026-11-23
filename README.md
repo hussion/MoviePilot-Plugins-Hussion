@@ -21,3 +21,9 @@ MP V3 插件，补齐豆瓣、Bangumi 手动下载的 TMDB 主身份转换。订
 ## 测试
 
 测试应使用与生产一致的 `app.plugins.manualtmdbidentity` 命名空间和 MP 宿主解释器。真实下载与删除测试须单独授权测试媒体。
+
+## 后续更新
+
+维护者同步修改插件 `plugin_version`、`package.v3.json` 的版本及顶部历史，运行宿主测试后推送 main，再推送 `ManualTmdbIdentity_v版本号` 标签。GitHub Actions 会重新测试并发布 MP 可安装的压缩包；已发布版本不覆盖，代码变更使用新版本号。
+
+用户在 MP 插件市场刷新后更新即可，无需 SSH 替换文件。停用插件即可恢复原来的下载身份处理；已经下载或整理的记录不会被自动改回。
