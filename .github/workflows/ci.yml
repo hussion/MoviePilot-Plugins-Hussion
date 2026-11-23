@@ -1,0 +1,15 @@
+name: Test
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.14'
+      - run: docker run --rm -v "$PWD:/plugin:ro" --entrypoint python jxxghp/moviepilot-v3:latest /plugin/scripts/test_host.py
+      - run: python -m compileall -q plugins.v3
+      - run: python scripts/build_release.py

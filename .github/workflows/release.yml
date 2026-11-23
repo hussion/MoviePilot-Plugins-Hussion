@@ -1,0 +1,23 @@
+name: Release
+on:
+  push:
+    tags: ['ManualTmdbIdentity_v*']
+permissions:
+  contents: write
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.14'
+      - run: docker run --rm -v "$PWD:/plugin:ro" --entrypoint python jxxghp/moviepilot-v3:latest /plugin/scripts/test_host.py
+      - run: python scripts/build_release.py
+      - name: Verify tag and publish
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          version=$(python -c 'import json; print(json.load(open("package.v3.json"))["ManualTmdbIdentity"]["version"])')
+          test "$GITHUB_REF_NAME" = "ManualTmdbIdentity_v$version"
+          gh release create "$GITHUB_REF_NAME" "dist/manualtmdbidentity_v$version.zip" --title "$GITHUB_REF_NAME" --notes-file CHANGELOG.md
